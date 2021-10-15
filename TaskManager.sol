@@ -31,4 +31,8 @@ contract TaskManager {
         tasks[lastTaskNumber] = Task(title, now, false);
 	}
     
+    function removeTask(int8 taskNumber) public checkOwnerAndAccept {
+        require(tasks.exists(taskNumber), 201, "task with this number dosn't exist");
+        delete tasks[taskNumber];
+	}
 }
