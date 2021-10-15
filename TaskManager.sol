@@ -4,6 +4,8 @@ pragma AbiHeader expire;
 
 contract TaskManager {
 
+    int8 private lastTaskNumber;
+
     struct Task {
         string title;
         uint32 creationTime;
@@ -17,4 +19,16 @@ contract TaskManager {
         require(msg.pubkey() == tvm.pubkey(), 102);
         tvm.accept();
     }
+
+    modifier checkOwnerAndAccept {
+		require(msg.pubkey() == tvm.pubkey(), 102);
+		tvm.accept();
+		_;
+	}
+
+    function addTask(string title) public checkOwnerAndAccept {
+        lastTaskNumber++;
+        tasks[lastTaskNumber] = Task(title, now, false);
+	}
+    
 }
