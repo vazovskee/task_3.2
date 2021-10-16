@@ -62,4 +62,12 @@ contract TaskManager {
         undoneTasksAmount--;
         tasks[taskNumber].isDone = true;
     }
+
+    function getTaskByNum(int8 taskNumber)
+        public view
+        checkTaskExistence(taskNumber)
+        returns (Task)
+    {   
+        return tasks[taskNumber];
+    }
 }
